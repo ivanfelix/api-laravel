@@ -15,5 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/*
+|--------------------------------------------------------------------------
+| Rutas de Usuario
+|--------------------------------------------------------------------------
+*/
 Route::post('/login', 'UserController@login');
 Route::post('/register', 'UserController@register');
+Route::put('/user/update', 'UserController@update');
