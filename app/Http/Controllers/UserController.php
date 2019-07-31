@@ -100,14 +100,14 @@ class UserController extends Controller
             $validate = \Validator::make($params_array, [
                 'name' => 'required|alpha',
                 'surname' => 'required|alpha',
-                'email' => 'required|email|unique:users,'.$user->sub 
+                'email' => 'required|unique:users,id,' . $user->sub
             ]);
             if($validate->fails()){
                 $data = array(
                     'status' => 'error',
                     'code' => 404,
                     'message' => 'Los datos no son validos.',
-                    'errors' => $validate->errors()
+                    'errors' => $validate->errors(),
                 );
             }else{
                 // Quitar los campos que no quiero actualizar
@@ -122,7 +122,8 @@ class UserController extends Controller
                 $data = array(
                     'status' => 'success',
                     'code' => 200,
-                    'user_updated' => $user_updated
+                    'user_updated' => $params_array,
+                    'user' => $user
                 );
             }
         }else{
@@ -133,5 +134,13 @@ class UserController extends Controller
             );
         }
         return response()->json($data, $data['code']);
+    }
+    public function upload(){
+        $data = array(
+            'code' => 400,
+            'status' => 'error',
+            'message' => 'El usuario no está identificado.'
+        );
+        return response($data, $data['code'])->header('Content-Type', 'text/plain');
     }
 }
