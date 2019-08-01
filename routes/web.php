@@ -23,4 +23,9 @@ Route::get('/', function () {
 Route::post('/login', 'UserController@login');
 Route::post('/register', 'UserController@register');
 Route::put('/user/update', 'UserController@update');
-Route::post('/user/upload', 'UserController@upload');
+
+// ejemplo con middleware - El se incluye en el archivo Kernel.php 
+Route::post('/user/upload', 'UserController@upload')->middleware('apiauth');
+// Se pasan paramentros por la url
+Route::get('/user/avatar/{filename}', 'UserController@getImage');
+Route::get('/user/{filename}', 'UserController@getUser');
