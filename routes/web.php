@@ -29,3 +29,7 @@ Route::post('/user/upload', 'UserController@upload')->middleware('apiauth');
 // Se pasan paramentros por la url
 Route::get('/user/avatar/{filename}', 'UserController@getImage');
 Route::get('/user/{filename}', 'UserController@getUser');
+
+Route::resource('/category', 'CategoryController');
+
+Route::resource('/posts', 'PostController');
