@@ -33,3 +33,6 @@ Route::get('/user/{filename}', 'UserController@getUser');
 Route::resource('/category', 'CategoryController');
 
 Route::resource('/posts', 'PostController');
+
+Route::get('/posts/category/{filename}', 'PostController@getPostsByCategory');
+Route::get('/posts/user/{filename}', 'PostController@getPostsByUser');

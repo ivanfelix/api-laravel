@@ -10,7 +10,7 @@ use App\Post;
 class PostController extends Controller
 {
     public function __construct(){
-        $this->middleware('apiauth', ['except' => ['index', 'show']]);
+        $this->middleware('apiauth', ['except' => ['index', 'show','getPostsByCategory','getPostsByUser']]);
     }
     public function index(){
         $posts = Post::all()->load('category');
@@ -149,6 +149,24 @@ class PostController extends Controller
                 'errors' => 'El post no existe.'
             );
         }
+        return response()->json($data, $data['code']);
+    }
+    public function getPostsByCategory($id, Request $request){
+        $posts = Post::where('category_id', $id)->get();
+        $data = array(
+            'status' => 'success',
+            'code' => 200,
+            'posts' => $posts
+        );
+        return response()->json($data, $data['code']);
+    }
+    public function getPostsByUser($id, Request $request){
+        $posts = Post::where('user_id', $id)->get();
+        $data = array(
+            'status' => 'success',
+            'code' => 200,
+            'posts' => $posts
+        );
         return response()->json($data, $data['code']);
     }
 }
